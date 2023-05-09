@@ -28,14 +28,11 @@ fn main() {
     receipt.verify(&PW_CHECK_ID).expect(
         "Code you have proven should successfully verify; did you specify the correct method ID?",
     );
+
     println!("Proof verification took in {}ms", now.elapsed().as_millis());
+    println!("Proof size: {}kb", receipt.get_seal_bytes().len() / 1000);
 
     let journal = receipt.get_journal_bytes();
-    println!(
-        "Journal length: {}, Seal length: {}",
-        journal.len(),
-        receipt.get_journal_bytes().len()
-    );
     let output: Digest = from_slice(&journal).unwrap();
     println!("Password hash contains punctuation characters: {}", output);
 
